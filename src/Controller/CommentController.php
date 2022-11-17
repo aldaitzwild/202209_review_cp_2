@@ -7,7 +7,7 @@ use App\Model\ProjectManager;
 
 class CommentController extends AbstractController
 {
-    public function displayComments(int $id = 1)
+    public function displayCommentsByProjectID(int $id = 1)
     {
         $commentManager = new CommentManager();
         $comments = $commentManager->selectAllByProjectId($id);

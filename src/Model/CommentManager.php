@@ -10,7 +10,7 @@ class CommentManager extends AbstractManager
 
     public function selectAllByProjectId(int $id): array
     {
-        $query = "SELECT * FROM " . self::TABLE . " WHERE :id=project_id;";
+        $query = "SELECT * FROM " . self::TABLE . " WHERE project_id=:id;";
 
         $statement = $this->pdo->prepare($query);
         $statement->bindValue('id', $id, PDO::PARAM_INT);
