@@ -1,63 +1,43 @@
--- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
---
--- Client :  localhost
--- Généré le :  Jeu 26 Octobre 2017 à 13:53
--- Version du serveur :  5.7.19-0ubuntu0.16.04.1
--- Version de PHP :  7.0.22-0ubuntu0.16.04.1
+CREATE DATABASE cp2_revision;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+USE cp2_revision;
 
+CREATE TABLE project (
+	id int primary key auto_increment,
+    name varchar(100) not null,
+    description text, 
+    github_url varchar(200) not null,
+    number_of_pr int not null
+);
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+INSERT project (name, description, github_url, number_of_pr)
+VALUES 
+('Vin sur Vin', 'Site de presentation de vin de producteurs indépendants',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Vin_sur_Vin/', 29),
+('Le plateau', 'Site de partage de jeu de plateau sur le plateau',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Le_plateau', 86),
+('Aeterna Fabula', 'Site internet dont on est le héros',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_aeterna_fabula', 38),
+('GoldFish', 'Site d\'agenda de concert avec gesttion des favoris',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Goldfish', 46)
+;
 
---
--- Base de données :  `simple-mvc`
---
+CREATE TABLE comment (
+	id int primary key auto_increment,
+    creation_date date not null,
+    comment text,
+    project_id int
+);
 
--- --------------------------------------------------------
+ALTER TABLE comment
+ADD CONSTRAINT FK_Comment_Project
+FOREIGN KEY (project_id)
+REFERENCES Project(id);
 
---
--- Structure de la table `item`
---
+CREATE TABLE developper (
+	id int primary key auto_increment,
+    fname VARCHAR(55),
+    lname VARCHAR(55),
+    project_id int,
+);
 
-CREATE TABLE `item` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `item`
---
-
-INSERT INTO `item` (`id`, `title`) VALUES
-(1, 'Stuff'),
-(2, 'Doodads');
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `item`
---
-ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `item`
---
-ALTER TABLE `item`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE developper
+ADD CONSTRAINT FK_developper_project
+FOREIGN KEY (project_id)
+REFERENCES Project(id);

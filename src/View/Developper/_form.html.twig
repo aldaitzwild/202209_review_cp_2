@@ -1,0 +1,26 @@
+{# TODO : manage errors display #}
+
+<form method="post" aria-description="formulaire ajout de développeur">
+	<input type="hidden" value="{{ developper.id }}" name="id">
+	<div class="">
+		<label for="title">Ajouter un développeur</label>
+		<input class="form-control" type="text" value="{{ developper.fname }}" name="fname" id="fname" placeholder="Rentrez un nom" required>
+	</div>
+	<input type="text" value="{{ developper.title }}" name="lname" id="title">
+	<div class="">
+		<label for="project-select">Sélectionnez un projet :</label>
+		<select class="form-select" aria-description="menu projet" name="project_id" id="project_name" required>
+			{% if project.name %}
+				<option value="{{ project.name }}" selected>
+					{{ project.name }}
+				</option>
+			{% else %}
+				<option value="">Liste des projets</option>
+			{% endif %}
+			{% for project in projects %}
+				<option value="{{ project.id }}">{{ project.name }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<button>Submit</button>
+</form>
