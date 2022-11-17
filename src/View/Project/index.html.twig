@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<h1 class="text-center my-5">Les Projets 2 de la section PHP à la WildCodeSchool</h1>
+
+	<div class="container d-flex w-100  justify-content-center">
+		<div class="row justify-content-start w-100 justify-content-between gap-1">
+
+			{% for project in projects %}
+				<div class="card w-20 p-0 text-center" style="width: 18rem;">
+					<img src='{{ project.image }}' class="card-img-top col-3" alt="projectImage">
+					<div class="card-body">
+						<h4 class="card-title">{{ project.name }}</h4>
+						<h5 class="card-title">{{ project.title }}</h5>
+						<p class="card-text px-3">{{ project.description }}</p>
+						<div class="mt-5">
+							<a href="{{project.github_url}}">Github du projet</a>
+							<a href="/project/addvote?id={{project.id}}" 
+							class="btn btn-primary align-items-center m-3">Vote for this project</a>
+							<div>
+								Poules request :{{project.number_of_pr}}
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">Nombre de votes :
+					</br>
+					<p>{{project.number_of_vote}}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}
