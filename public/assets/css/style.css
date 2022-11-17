@@ -1,3 +1,7 @@
 body {
-    color: #f76c6c;
+    color: black;
+}
+
+.card-img-top {
+    height: 15em;
 }
