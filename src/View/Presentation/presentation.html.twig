@@ -1,0 +1,23 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+<div class ="text-dark">
+    {% for project in presentations %}
+    <div class ="d-flex">
+        <div class="m-5 ">
+            <h2>{{ project.name }}</h2>
+            <p class="fw-lighter">{{ project.description}}</p>
+            <p class ="fst-italic">GitHub : {{ project.github_url}}</p>
+            <br>Nombre de PR : {{ project.number_of_pr}}
+        </div>
+        <div class="m-5">
+        <h3>Commentaires :</h3>
+            {% for comment in project.comments %}
+                <p> {{comment.creation_date}} - {{comment.comment}}</p>
+            {% endfor %}   
+        </div> 
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
