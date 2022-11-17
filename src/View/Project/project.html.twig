@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<ul>
+		{% for project in projects %}
+			<li>
+				{{project.name}}
+				<a href="/project/comments?id={{ project.id }}">sélectionner</a>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">{{project.name}}</h5>
+			<p class="card-text">{{project.description}}</p>
+		</div>
+		<div class="card-footer text-muted">
+			<a href="{{project.github_url}}">{{project.github_url}}</a>
+		</div>
+	</div>
+
+	<div>
+		<ul>
+			{% for comment in comments %}
+				<li>{{ comment.creation_date }} - {{ comment.comment }} - {{ comment.project_id }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<form method="post">
+		<div class="">
+			<h2>Donnez votre avis !
+				
+			</h2>
+			<label for="title">Ajouter un commentaire</label>
+			<input type="textarea" value="{{ item.title }}" name="title" id="title">
+			<button>Envoyer</button>
+		</div>
+	</form>
+
+{% endblock %}

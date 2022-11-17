@@ -1,63 +1,42 @@
--- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
---
--- Client :  localhost
--- Généré le :  Jeu 26 Octobre 2017 à 13:53
--- Version du serveur :  5.7.19-0ubuntu0.16.04.1
--- Version de PHP :  7.0.22-0ubuntu0.16.04.1
+DROP DATABASE IF EXISTS cp2_revision;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+CREATE DATABASE cp2_revision;
+
+USE cp2_revision;
+
+CREATE TABLE project (
+	id int primary key auto_increment,
+    name varchar(100) not null,
+    description text, 
+    github_url varchar(200) not null,
+    number_of_pr int not null
+);
+
+INSERT project (name, description, github_url, number_of_pr)
+VALUES 
+('Vin sur Vin', 'Site de presentation de vin de producteurs indépendants',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Vin_sur_Vin/', 29),
+('Le plateau', 'Site de partage de jeu de plateau sur le plateau',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Le_plateau', 86),
+('Aeterna Fabula', 'Site internet dont on est le héros',  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_aeterna_fabula', 38),
+('GoldFish', "Site d\'agenda de concert avec gesttion des favoris",  'https://github.com/WildCodeSchool/2022_09_PHP_Lyon_Goldfish', 46)
+;
+
+CREATE TABLE comment (
+	id int primary key auto_increment,
+    creation_date date not null,
+    comment text,
+    project_id int
+);
+
+INSERT INTO cp2_revision.comment (id,creation_date,comment,project_id)
+	VALUES
+    (1,'2022-11-17','top',1);
+    (2,'2022-11-17','bof',1);
+    (3,'2022-11-17','nul',1);
+    (4,'2022-11-17','génial',1);
+    (5,'2022-11-17','bravo !',1);
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données :  `simple-mvc`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `item`
---
-
-CREATE TABLE `item` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `item`
---
-
-INSERT INTO `item` (`id`, `title`) VALUES
-(1, 'Stuff'),
-(2, 'Doodads');
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `item`
---
-ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `item`
---
-ALTER TABLE `item`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE comment
+ADD CONSTRAINT FK_Comment_Project
+FOREIGN KEY (project_id)
+REFERENCES Project(id);
